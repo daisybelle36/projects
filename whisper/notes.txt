@@ -9,7 +9,7 @@ source venv/bin/activate
 # always a good idea to make sure pip is up-to-date
 pip3 install --upgrade pip
 
-Next, install a clone of the Whisper package and its dependencies (torch, numpy, transformers, tqdm, more-itertools, and ffmpeg-python) into your python environment.
+# Next, install a clone of the Whisper package and its dependencies (torch, numpy, transformers, tqdm, more-itertools, and ffmpeg-python) into your python environment.
 
 pip3 install git+https://github.com/openai/whisper.git
 
