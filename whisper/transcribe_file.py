@@ -2,7 +2,7 @@
  
 # --- LIBRARIES --- #
 from argparse import ArgumentParser
-#import whisper
+import whisper
 #import openai
 #import openai_whisper
  
@@ -29,14 +29,22 @@ def main():
 	#parser.add_argument('-w', '--word', help='col of headword, default = 1', default = 1)
 	# collate/parse arguments
 	args = parser.parse_args()
+	print(f'{args=}')
  	
 	# read in audio
 	prefix = args.audio_file[:-4]
-	audio = args.audio_file
+	print(f'{prefix=}')
+	audio_input = args.audio_file
+	print(f'{audio_input=}')
  		
 	# transcribe audio
 	model = whisper.load_model("base")
-	result = model.transcribe("audio")
+	print("'base' model loaded")
+	#result = model.transcribe("audio_input")
+	result = model.transcribe(args.audio_file, fp16=False)
+	print(result)
+	for segment in result["segments"]:
+		print(segment["start"], segment["text"])
 
 	#with open(audio, 'r') as inFile:
 		#for line in inFile:
