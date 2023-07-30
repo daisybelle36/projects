@@ -4,6 +4,7 @@
 from argparse import ArgumentParser
 import whisper
 import glob
+import sys
  
 # --- VARIABLES --- #
  
@@ -19,8 +20,24 @@ def main():
 	parser.add_argument('path', nargs='+', help='Path of a file or a folder of files.')
 	# collate/parse arguments, including glob
 	args = parser.parse_args()
+
+	# if args.path is not a string, then only one file gets processed
+	for p in args.path:
+		if not isinstance(p, str):
+			print(p)
+			sys.exit('ERROR: The argument p must be a string -> use quotes \
+			around the filename or glob.\n\
+			       Please fix this and try again.')
+
+	if not isinstance(args.path, list):
+		print(args.path)
+		exit('ERROR: The argument args.path must be a list -> use quotes \
+		around the filename or glob.\n\
+		       Please fix this and try again.')
+
 	# glob.glob -> list; glob.iglob -> iterator
-	globbed_paths = sorted(glob.iglob(args.path[0]))
+	globbed_paths = sorted(glob.glob(args.path[0]))
+	#print(globbed_paths)
 
 	# load model
 	model = whisper.load_model("base")
@@ -28,7 +45,7 @@ def main():
 
 	for g in globbed_paths:
 		# read in audio
-		audio_input = g
+		#print(f'{g=}')
  		
 		# transcribe audio
 		#verbose=False
