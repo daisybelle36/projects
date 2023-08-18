@@ -53,7 +53,11 @@ def main():
 		#print(result)   # to see structure of transcribed text
 		# print transcribed text
 		for segment in result["segments"]:
-			print(g, round(segment["start"]), segment["text"], sep='\t')
+			mins = segment["start"] / 60
+			secs = round(segment["start"] % 60)
+			#print(g, round(segment["start"]), segment["text"], sep='\t')
+			# TODO: add in option to print filename
+			print(mins, ":", secs, "\t", segment["text"], sep='')
 
  
 if __name__ == "__main__":
