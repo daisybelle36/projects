@@ -5,6 +5,7 @@ from argparse import ArgumentParser
 import whisper
 import glob
 import sys
+import datetime
  
 # --- VARIABLES --- #
  
@@ -41,7 +42,7 @@ def main():
 
 	# load model
 	model = whisper.load_model("base")
-	print("'base' model loaded")
+	#print("'base' model loaded")
 
 	for g in globbed_paths:
 		# read in audio
@@ -53,11 +54,13 @@ def main():
 		#print(result)   # to see structure of transcribed text
 		# print transcribed text
 		for segment in result["segments"]:
-			mins = segment["start"] / 60
-			secs = round(segment["start"] % 60)
+			#start = segment["start"]
+			convert = str(datetime.timedelta(seconds = int(segment["start"])))
+			#mins = abs(segment["start"] / 60)
+			#secs = round(segment["start"] % 60)
 			#print(g, round(segment["start"]), segment["text"], sep='\t')
 			# TODO: add in option to print filename
-			print(mins, ":", secs, "\t", segment["text"], sep='')
+			print(convert, segment["text"][1:], sep='\t')
 
  
 if __name__ == "__main__":
